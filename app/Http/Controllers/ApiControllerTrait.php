@@ -56,12 +56,16 @@ trait ApiControllerTrait
 
     public function store(Request $request)
     {
+        $this->validate($request, $this->rules ?? [], $this->messages ?? []);
+
         $result = $this->model->create($request->all());
         return response()->json($result);
     }
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, $this->rules ?? [], $this->messages ?? []);
+
         $result = $this->model->findOrFail($id);
         $result->update($request->all());
         return response()->json($result);
