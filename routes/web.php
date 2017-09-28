@@ -23,5 +23,6 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1' , 'middleware' => 
     $router->get('restaurants/{id}', 'RestaurantsController@show');
     $router->post('restaurants', 'RestaurantsController@store');
     $router->put('restaurants/{id}', 'RestaurantsController@update');
+    $router->post('restaurants/{id}', 'RestaurantsController@update');
     $router->delete('restaurants/{id}', 'RestaurantsController@destroy');
 });
