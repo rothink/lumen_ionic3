@@ -12,6 +12,7 @@ export class EditComponent implements OnInit {
     dragging: boolean = false;
     restaurant: any = {};
     address: any = {};
+    upload_status: string = 'not';
 
     constructor(
         protected appHttpService: AppHttpService,
@@ -42,11 +43,19 @@ export class EditComponent implements OnInit {
         } else {
             image_url = e.target.files[0];
         }
+        this.upload_status = 'sending';
+
         let formData = new FormData();
         formData.append('photo', image_url);
 
         this.httpService.builder()
-            .upload(this.restaurant.id + '/upload', formData);
+            .upload(this.restaurant.id + '/upload', formData)
+            .then(() => {
+                this.upload_status = 'success';
+            })
+            .catch(() => {
+                this.upload_status = 'error';
+            });
     }
 
     dragover (e) {
