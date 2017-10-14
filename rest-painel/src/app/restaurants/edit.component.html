@@ -6,11 +6,11 @@
     <div class="col s9">
         <form class="row" (submit)="save($event)">
             <div class="input-field col s12">
-                <input id="name" name="name" type="text" placeholder="Nome" >
+                <input id="name" name="name" type="text" placeholder="Nome" [(ngModel)]="restaurant.name" >
                 <label for="name">Nome do restaurante</label>
             </div>
             <div class="input-field col s12">
-                <textarea id="description" name="description" class="materialize-textarea" placeholder="Descrição" ></textarea>
+                <textarea id="description" name="description" class="materialize-textarea" placeholder="Descrição" [(ngModel)]="restaurant.description" >  </textarea>
                 <label for="description">Descrição do restaurante</label>
             </div>
 
@@ -20,37 +20,37 @@
             </div>
 
             <div class="input-field col s6">
-                <input id="cep" type="text" name="cep"  placeholder="CEP">
+                <input id="cep" type="text" name="cep"  placeholder="CEP" [(ngModel)]="address.cep" (keyup)="searchCep()">
                 <label for="cep">CEP</label>
             </div>
 
             <div class="input-field col s9">
-                <input id="address" type="text" name="address"  placeholder="Endereço">
+                <input id="address" type="text" name="address"  placeholder="Endereço" [(ngModel)]="address.address">
                 <label for="address">Endereço</label>
             </div>
 
             <div class="input-field col s3">
-                <input id="number" type="text" name="number"  placeholder="Número">
+                <input id="number" type="text" name="number"  placeholder="Número" [(ngModel)]="address.number">
                 <label for="number">Número</label>
             </div>
 
             <div class="input-field col s6">
-                <input id="city" type="text" name="city"  placeholder="Cidade">
+                <input id="city" type="text" name="city"  placeholder="Cidade" [(ngModel)]="address.city">
                 <label for="city">Cidade</label>
             </div>
 
             <div class="input-field col s6">
-                <input id="neighborhood" type="text" name="neighborhood"  placeholder="Bairro">
+                <input id="neighborhood" type="text" name="neighborhood"  placeholder="Bairro" [(ngModel)]="address.neighborhood">
                 <label for="neighborhood">Bairro</label>
             </div>
 
             <div class="input-field col s6">
-                <input id="state" type="text" name="state"  placeholder="Estado">
+                <input id="state" type="text" name="state"  placeholder="Estado" [(ngModel)]="address.state">
                 <label for="state">Estado</label>
             </div>
 
             <div class="input-field col s12">
-                <input id="complement" type="text" name="complement"  placeholder="Complemento">
+                <input id="complement" type="text" name="complement"  placeholder="Complemento" [(ngModel)]="address.complement">
                 <label for="complement">Complemento</label>
             </div>
 
@@ -61,7 +61,7 @@
     </div>
 
     <div class="col s3">
-        <div class="card-panel white-text center-align photo-changer"
+        <div class="card-panel center-align photo-changer"
              [ngClass]="{
                 'lighten-1': dragging,
                 'grey': upload_status === 'not',
@@ -77,10 +77,7 @@
             <i class="material-icons">insert_photo</i>
             <p *ngIf="!dragging;else release">Arraste sua foto aqui ou clique para enviar</p>
             <ng-template #release>
-                <p *ngIf="upload_status === 'not'">Solte para enviar</p>
-                <p *ngIf="upload_status === 'sending'">Enviando, aguarde...</p>
-                <p *ngIf="upload_status === 'success'">Enviado com sucesso, você pode arrastar ou clicar aqui para enviar outro</p>
-                <p *ngIf="upload_status === 'error'">Erro ao enviar, tente novamente ou contate o administrador do sistema.</p>
+                <p>Solte para enviar</p>
             </ng-template>
             <input type="file" accept="image/*" #file style="display: none" (change)="upload($event)">
         </div>

@@ -4,11 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { EvaluationComponent } from './dashboard/evaluation.component';
+import { FormsModule } from '@angular/forms';
 
 import { DishesComponent } from './dishes.component';
 import { EditComponent } from './edit.component';
 import { PasswordComponent } from './password.component';
 import { ProfileComponent } from './profile.component';
+
+import { RestaurantService } from './restaurant.service';
 
 
 const appRoutes : Routes = [
@@ -26,6 +29,7 @@ const appRoutes : Routes = [
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         RouterModule.forRoot(appRoutes)
     ],
     declarations: [
@@ -35,6 +39,9 @@ const appRoutes : Routes = [
         EditComponent,
         PasswordComponent,
         ProfileComponent,
+    ],
+    providers: [
+        RestaurantService
     ]
 })
 export class RestaurantsModule {}
