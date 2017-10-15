@@ -9,7 +9,7 @@ class RestaurantObserver
     use UploadObserverTrait;
 
     protected $field = 'photo';
-    protected $path = 'restaurante/';
+    protected $path = 'restaurant/';
 
     public function creating(Restaurant $model)
     {
