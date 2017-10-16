@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddPhotoToDishesTable' => $baseDir . '/database/migrations/2017_10_15_131933_add_photo_to_dishes_table.php',
     'AddPhotoToRestaurantsTable' => $baseDir . '/database/migrations/2017_09_27_034033_add_photo_to_restaurants_table.php',
     'AddUserIdToRestaurants' => $baseDir . '/database/migrations/2017_10_14_014926_add_user_id_to_restaurants.php',
     'CorsKernel' => $vendorDir . '/barryvdh/laravel-cors/tests/CorsKernel.php',

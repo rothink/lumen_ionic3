@@ -19,6 +19,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1' , 'middleware' => 'auth'], function() use ($router) {
+//    restaurant
     $router->get('restaurants', 'RestaurantsController@index');
     $router->get('restaurants/{id:[0-9]+}', 'RestaurantsController@show');
     $router->post('restaurants', 'RestaurantsController@store');
@@ -28,9 +29,18 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1' , 'middleware' => 
     $router->post('restaurants/{id:[0-9]+}/address', 'RestaurantsController@address');
     $router->post('restaurants/{id:[0-9]+}/upload', 'RestaurantsController@upload');
 
+//    fotos de restaurante
     $router->get('restaurants/{id:[0-9]+}/photos', 'RestaurantPhotosController@index');
     $router->post('restaurants/photos', 'RestaurantPhotosController@store');
     $router->delete('restaurants/photos/{id:[0-9]+}', 'RestaurantPhotosController@destroy');
 
+//    pratos
+    $router->get('dishes', 'DishesController@index');
+    $router->get('dishes/{id:[0-9]+}', 'DishesController@show');
+    $router->post('dishes', 'DishesController@store');
+    $router->post('dishes/{id:[0-9]+}', 'DishesController@update');
+    $router->delete('dishes/{id:[0-9]+}', 'DishesController@destroy');
+
+//    autenticação
     $router->get('auth/me', 'AuthController@me');
 });

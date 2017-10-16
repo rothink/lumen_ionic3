@@ -1,10 +1,12 @@
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { RestaurantsModule } from './restaurants/restaurant.module';
 import { FormsModule } from '@angular/forms';
+
 import { AppHttpService } from  './app-http.service';
+import { RestaurantsModule } from './restaurants/restaurant.module';
+import { UserModule} from './user/user.module';
 
 const appRoutes : Routes = [
   {
@@ -25,6 +27,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule,
     RestaurantsModule,
+    UserModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

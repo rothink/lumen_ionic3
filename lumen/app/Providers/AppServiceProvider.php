@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
-use App\Observers\RestaurantPhotoObserver;
-use App\RestaurantPhoto;
+use App\Dish;
 use Illuminate\Support\ServiceProvider;
-use App\Restaurant;
+use App\Observers\DishObserver;
+use App\Observers\RestaurantPhotoObserver;
 use App\Observers\RestaurantObserver;
+use App\RestaurantPhoto;
+use App\Restaurant;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Restaurant::observe(RestaurantObserver::class);
         RestaurantPhoto::observe(RestaurantPhotoObserver::class);
+        Dish::observe(DishObserver::class);
     }
     /**
      * Register any application services.

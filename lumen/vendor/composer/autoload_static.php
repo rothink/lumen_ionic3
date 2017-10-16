@@ -422,6 +422,7 @@ class ComposerStaticInitee43f26b567c325f05dbd4de4d58cce5
     );
 
     public static $classMap = array (
+        'AddPhotoToDishesTable' => __DIR__ . '/../..' . '/database/migrations/2017_10_15_131933_add_photo_to_dishes_table.php',
         'AddPhotoToRestaurantsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_27_034033_add_photo_to_restaurants_table.php',
         'AddUserIdToRestaurants' => __DIR__ . '/../..' . '/database/migrations/2017_10_14_014926_add_user_id_to_restaurants.php',
         'CorsKernel' => __DIR__ . '/..' . '/barryvdh/laravel-cors/tests/CorsKernel.php',
