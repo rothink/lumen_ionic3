@@ -5,12 +5,14 @@ import {FormsModule} from '@angular/forms';
 
 import {PasswordComponent} from './components/password.component';
 import {ProfileComponent} from './components/profile.component';
+import {LoginComponent} from './components/login.component';
 
 import {AuthService} from './services/auth.service';
 
 const appRoutes: Routes = [
     {path: 'password', component: PasswordComponent},
     {path: 'profile', component: ProfileComponent},
+    {path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
@@ -21,11 +23,11 @@ const appRoutes: Routes = [
     ],
     declarations: [
         PasswordComponent,
-        ProfileComponent
+        ProfileComponent,
+        LoginComponent
     ],
     providers: [
         AuthService
     ]
 })
-export class UserModule {
-}
+export class UserModule {}

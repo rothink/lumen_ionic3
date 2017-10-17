@@ -80,16 +80,16 @@ export class AppHttpService {
             .catch((error) => {
                 let message = 'Algo deu errado ' + error.status;
 
-                if (error.status == 401) {
+                if (error.status === 401) {
                     message = 'Você não tem permissão';
                     this.router.navigate(['/login']);
                 }
 
-                if (error.status == 422) {
+                if (error.status === 422) {
                     message = 'Falha de validação';
                 }
 
-                if (error.status == 404) {
+                if (error.status === 404) {
                     message = 'Impossível se conectar ao servidor';
                 }
 
