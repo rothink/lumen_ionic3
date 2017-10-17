@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AppHttpService} from  '../../app-http.service';
+import {AuthService} from  '../../user/services/auth.service';
 import {RestaurantService} from  '../services/restaurant.service';
 import * as JQuery from 'jquery';
 
@@ -16,12 +16,12 @@ export class EditComponent implements OnInit {
     upload_status: string = 'not';
     restaurant_photo: any = null;
 
-    constructor(protected appHttpService: AppHttpService,
+    constructor(protected authService: AuthService,
                 protected httpService: RestaurantService) {
     }
 
     ngOnInit() {
-        this.appHttpService.getUser()
+        this.authService.getUser()
             .then((res) => {
                 let id = res.restaurant.id;
                 this.httpService.builder().view(id)

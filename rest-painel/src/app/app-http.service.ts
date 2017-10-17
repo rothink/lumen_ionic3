@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
+import {Router} from '@angular/router';
+
 import {environment} from '../environments/environment';
 
 import 'rxjs/add/operator/toPromise';
@@ -11,17 +13,13 @@ export class AppHttpService {
     protected header: Headers;
     protected url: string;
 
-    constructor(protected http: Http) {
+    constructor(protected http: Http,
+                private router: Router) {
         this.setAccessToken();
     }
 
     request() {
         return this.http;
-    }
-
-    getUser() {
-        return this.builder('auth/me')
-            .list();
     }
 
     setAccessToken() {
@@ -40,55 +38,64 @@ export class AppHttpService {
 
         let url = this.url;
 
-        if(options.filters != undefined) {
+        if (options.filters != undefined) {
             let filters = options.filters;
             filters.forEach((item, index) => {
                 let field = Object.keys(item)[0];
                 let value = item[field];
-                url = url + '?where['+field+']=' + value;
+                url = url + '?where[' + field + ']=' + value;
             })
 
         }
 
-        return this.http.get(url,  {headers: this.header})
-            .toPromise()
-            .then((res) => {
-                return res.json() || {};
-            });
+        let observable = this.http.get(url, {headers: this.header});
+        return this.toPromise(observable);
     }
 
     view(id: number) {
-        return this.http.get(this.url + '/' + id, {headers: this.header})
-            .toPromise()
-            .then((res) => {
-                return res.json() || {};
-            });
+        let observable = this.http.get(this.url + '/' + id, {headers: this.header});
+        return this.toPromise(observable);
     }
 
     update(id: number, data: Object) {
-        return this.http.put(this.url + '/' + id, data, {headers: this.header})
-            .toPromise()
-            .then((res) => {
-                return res.json() || {};
-            });
+        let observable = this.http.put(this.url + '/' + id, data, {headers: this.header});
+        return this.toPromise(observable);
     }
 
     insert(data: Object) {
-        return this.http.post(this.url, data, {headers: this.header})
-            .toPromise()
-            .then((res) => {
-                return res.json() || {};
-            });
+        let observable = this.http.post(this.url, data, {headers: this.header});
+        return this.toPromise(observable);
     }
 
-    remove (id:number) {
-        return this.http.delete(this.url + '/' + id, {headers: this.header})
-            .toPromise()
-            .then((res) => {
-                return res.json() || {};
-            });
+    remove(id: number) {
+        let observable = this.http.delete(this.url + '/' + id, {headers: this.header})
+        return this.toPromise(observable);
     }
 
+    protected toPromise(request) {
+        return request.toPromise()
+            .then((res) => {
+                return res.json() || {};
+            })
+            .catch((error) => {
+                let message = 'Algo deu errado ' + error.status;
+
+                if (error.status == 401) {
+                    message = 'Você não tem permissão';
+                    this.router.navigate(['/login']);
+                }
+
+                if (error.status == 422) {
+                    message = 'Falha de validação';
+                }
+
+                if (error.status == 404) {
+                    message = 'Impossível se conectar ao servidor';
+                }
+
+                window.Materialize.toast(message, 3000, 'red');
+            });
+    }
 
 
 }

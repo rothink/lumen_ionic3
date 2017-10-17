@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {DishesService} from '../services/dishes.service';
-import {AppHttpService} from "../../app-http.service";
+import {AuthService} from  '../../user/services/auth.service';
 
 @Component({
     selector: 'app-dishes',
@@ -15,7 +15,7 @@ export class DishesComponent implements OnInit {
 
     constructor (
         private httpService: DishesService,
-        private authService: AppHttpService
+        private authService: AuthService
     ) {}
 
     ngOnInit() {

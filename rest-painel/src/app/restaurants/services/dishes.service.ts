@@ -12,10 +12,7 @@ export class DishesService extends AppHttpService {
     }
 
     update(id: number, data: Object) {
-        return this.http.post(this.url + '/' + id, data, {headers: this.header})
-            .toPromise()
-            .then((res) => {
-                return res.json() || {};
-            });
+        let observable = this.http.post(this.url + '/' + id, data, {headers: this.header});
+        return this.toPromise(observable);
     }
 }

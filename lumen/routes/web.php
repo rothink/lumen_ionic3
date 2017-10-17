@@ -43,4 +43,10 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1' , 'middleware' => 
 
 //    autenticação
     $router->get('auth/me', 'AuthController@me');
+
+//    mudar a senha
+    $router->post('auth/change-password', 'AuthController@changePassword');
+
+//    alterar profile
+    $router->post('auth/edit-profile', 'AuthController@editProfile');
 });

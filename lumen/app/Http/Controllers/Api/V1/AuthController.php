@@ -22,4 +22,47 @@ class AuthController extends Controller
             ->first();
         return response()->json($user);
     }
+
+    public function changePassword(Request $request)
+    {
+        $rules = [
+            'password' => 'required|min:6',
+            'password_confirmation' => 'same:password'
+        ];
+
+        $this->validate($request, $rules);
+
+        $user = User::where('id', $request->user()->id)
+            ->first();
+
+        $data = [
+            'password' => $request->input('passoword')
+        ];
+
+        $user->update($data);
+
+        return response()->json($user);
+    }
+
+    public function editProfile(Request $request)
+    {
+        $rules = [
+            'name' => 'required|min:3',
+            'email' => 'required|email'
+        ];
+
+        $this->validate($request, $rules);
+
+        $user = User::where('id', $request->user()->id)
+            ->first();
+
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email')
+        ];
+
+        $user->update($data);
+
+        return response()->json($user);
+    }
 }

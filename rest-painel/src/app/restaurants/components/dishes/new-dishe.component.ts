@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AppHttpService} from "../../../app-http.service";
+import {AuthService} from "../../../user/services/auth.service";
 import {DishesService} from '../../services/dishes.service';
 import * as JQuery from 'jquery';
 
@@ -14,7 +14,7 @@ export class NewDisheComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private authService: AppHttpService,
+        private authService: AuthService,
         protected httpService: DishesService
     ) {}
 
