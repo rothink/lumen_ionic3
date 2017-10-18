@@ -23,7 +23,7 @@ export class AppHttpService {
     }
 
     setAccessToken() {
-        let token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjExYjNjMjdiNmE3MWNmOWYyMzk5MDNlZDk4ZDM3OTI1Nzk4YjY2MzY4ZWU3Yjg5ODYwODkzZTdjYmE2ZDViNThkODY3ZTVjOWI0ZDYyNDdkIn0.eyJhdWQiOiIzIiwianRpIjoiMTFiM2MyN2I2YTcxY2Y5ZjIzOTkwM2VkOThkMzc5MjU3OThiNjYzNjhlZTdiODk4NjA4OTNlN2NiYTZkNWI1OGQ4NjdlNWM5YjRkNjI0N2QiLCJpYXQiOjE1MDc5NDUyNTksIm5iZiI6MTUwNzk0NTI1OSwiZXhwIjoxNTM5NDgxMjU5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.WD96yF6_-xYlmrWFxktVENrwsEnrIL5YBsyQ6CutPQpcKzcKhMW8GQpNC9kDSKOEunOI5u4cePS04m7JvGtv7PRKWqZLj_ggNTQOlR5Am4vMaeHXzvblmb3ii1mqo0cCWioIKNFLO_0Lv_ww60peMrEs5td2j8PTe8dBo6MUbDrJ_T8HBGYErQgozfs_9V8z8LYeLCc7ucTzMTv6UoYYfWhQS6wL1WinOqfsCK9xZ0wgSITYk3-ODisIMk8_ZenU5T9AOCyglLI4g5WUuNbsUygExUaOYgtxQz_AMA8n_LlumruSJfEZywNV5mLWjGYILKkMT_RKSGU3PlGazC3rX3gT-xVhTfKi8DO7R43e4y7wOV0xsscqgIcJ2pA0hv9rtehkTtXIQztFu3ea0O7LjwVkVKAz899yAKDbjQR3IyhAOCO8Y8CXci6O8P2xx3-RwrMM2dfMxmJCE7F7M3-AsAsaCsXjZLOFE2x4DDByKT35TKcrSh9CmDNEOxviSFIQTX2DEy05m24Iseh-Zm25iClkX-PKJqMsssAyShrJMLVsiL60A66G0eflAT7a0QAU0u3wZBZuoKmDUjjREJmC4eDap0ZQCbrVbQWK9eiZypazY3EFRCxTH06lIXzR5GHTS1qwDbnwd2mLBQc8UfydLXqCajH9YsN-3bEDgdtRbNA';
+        let token = this.getCookie('token');
         this.header = new Headers({
             'Authorization': 'Bearer ' + token, 'Accept': 'application/json'
         });
@@ -97,5 +97,20 @@ export class AppHttpService {
             });
     }
 
+    private getCookie(name: string) {
 
+        let cookies = document.cookie;
+        if(!cookies) {
+            return null;
+        }
+
+        let cookiesCollection : string[] = cookies.split(';');
+        for(let i = 0; i < cookiesCollection.length; i++) {
+            let cookieCurrent = cookiesCollection[i].split('=');
+            if(cookieCurrent[0].trim() == name) {
+                return cookieCurrent[1];
+            }
+        }
+        return null;
+    }
 }

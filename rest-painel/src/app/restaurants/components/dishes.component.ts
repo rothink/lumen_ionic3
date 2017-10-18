@@ -28,11 +28,10 @@ export class DishesComponent implements OnInit {
                     ]
                 };
                 this.httpService.eventEmitter
-                    .subscribe((res) => {
+                    .subscribe(() => {
                         this.httpService.builder()
                             .list(options)
                             .then((res) => {
-                                console.info(res);
                                 this.dishes = res;
                             });
                     });
