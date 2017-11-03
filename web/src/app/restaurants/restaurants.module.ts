@@ -9,6 +9,7 @@ const appRoutes: Routes = [
     {path: 'search', component: RestaurantComponent}
 ];
 
+
 @NgModule({
     imports: [
         CommonModule,
