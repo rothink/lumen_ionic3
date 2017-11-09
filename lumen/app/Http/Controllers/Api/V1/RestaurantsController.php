@@ -18,6 +18,7 @@ class RestaurantsController extends Controller
     use ApiControllerTrait;
 
     protected $model;
+    
     protected $rules = [
         'name' => 'required|min:3',
         'description' => 'required'
