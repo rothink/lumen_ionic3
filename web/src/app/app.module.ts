@@ -16,7 +16,7 @@ const appRoutes: Routes = [
         pathMatch: 'full'
     }
 ];
-
+    
 import {AppComponent} from './app.component';
 
 @NgModule({
