@@ -33,7 +33,6 @@ class AddressObserver
             $result = array_pop($response->results);
             $model->latitude = $result->geometry->location->lat;
             $model->longitude = $result->geometry->location->lng;
-
         }
     }
 

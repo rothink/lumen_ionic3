@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use AnthonyMartin\GeoLocation\GeoLocation;
+use App\Address;
 use App\Http\Controllers\ApiControllerTrait;
 use App\Restaurant;
 use Illuminate\Http\Request;
@@ -56,5 +58,34 @@ class RestaurantsController extends Controller
         $result->update($data);
         return response()->json($result);
 
+    }
+
+    public function getByAddress(Request $request)
+    {
+        $location = $request->input('address');
+        $limit_km = $request->input('limit') ?? 10;
+
+        $response = GeoLocation::getGeocodeFromGoogle($location);
+
+
+        if(!empty($response->results) and is_array($response->results)) {
+            $result = array_pop($response->results);
+            $latitude = $result->geometry->location->lat;
+            $longitude = $result->geometry->location->lng;
+
+            $restaurants = Address::select(\DB::raw("id, latitude, longitude, restaurant_id, ( 6371 * acos( cos( radians({$latitude}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({$longitude}) ) + sin( radians({$latitude}) ) * sin( radians( latitude ) ) ) ) AS distance"))
+                ->orderBy('distance')
+                ->having('distance', '<=', $limit_km)
+                ->having('restaurant_id', '>', 0)
+                ->limit(20)
+                ->with(['restaurant'])
+                ->get();
+
+            $status = 'success';
+            return compact('restaurants', 'latitude', 'longitude', 'status');
+        }
+
+        $status = 'error';
+        return compact('status');
     }
 }
