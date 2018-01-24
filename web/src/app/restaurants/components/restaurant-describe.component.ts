@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import * as JQuery from 'jquery';
 import { AppHttpService } from '../../app-http.service';
 
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
     selector: 'app-restaurants',
@@ -9,6 +11,70 @@ import { AppHttpService } from '../../app-http.service';
 })
 export class RestaurantDescribeComponent {
 
-    constructor(private appHttpService: AppHttpService) {}
+    id: number;
+    restaurant: any = {};
+    dishes: any = {data:[]};
+    viewPhone: boolean = false;
+    vote: any = {points: '', comment: ''};
+    photos: any = [];
 
+    constructor(private appHttpService: AppHttpService, private route: ActivatedRoute) {}
+
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+           let id = this.id = params['id'];
+           let options = {
+               filter : {
+                   restaurant_id: id
+               }
+           }
+
+           this.appHttpService.builder('restaurants')
+               .view(id).then(res => {
+                    this.restaurant = res;
+           });
+
+           this.appHttpService.builder('dishes')
+               .list(options).then(res => {
+                    this.dishes = res;
+           });
+
+           this.appHttpService.builder('restaurants/' + id + '/photos')
+               .list().then(res => {
+                    this.photos = res;
+                    setTimeout(() => {
+                        JQuery('.materialBoxed').materialbox();
+                    })
+           });
+        });
+    }
+
+    showPhone(e) {
+        e.preventDefault();
+        if(!this.viewPhone) {
+            //
+        }
+        this.viewPhone = true;
+    }
+
+    addVote(e, vote) {
+        e.preventDefault();
+        JQuery('.modal').modal();
+        JQuery('.modal').modal('open');
+        this.vote.points = vote || '';
+    }
+
+    sendVote(e){
+        e.preventDefault();
+        JQuery('.modal').modal('close');
+        this.vote.restaurant_id = this.id;
+        //
+    }
+
+    classToVotes(vote) {
+        if(this.restaurant.points >= vote) {
+            return 'amber-text ';
+        }
+        return 'black-text';
+    }
 }
