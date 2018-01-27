@@ -52,7 +52,7 @@ export class RestaurantDescribeComponent {
     showPhone(e) {
         e.preventDefault();
         if(!this.viewPhone) {
-            //
+            this.appHttpService.builder('restaurants/' + this.id + '/view-phone').list();
         }
         this.viewPhone = true;
     }
@@ -68,7 +68,12 @@ export class RestaurantDescribeComponent {
         e.preventDefault();
         JQuery('.modal').modal('close');
         this.vote.restaurant_id = this.id;
-        //
+        this.appHttpService.builder('restaurants/vote').
+            insert(this.vote)
+            .then(() => {
+                this.vote = {points: '', comment: ''};
+                window.Materialize.toast('Seu voto foi registrado com sucesso', 3000, 'green');
+            });
     }
 
     classToVotes(vote) {
