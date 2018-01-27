@@ -88,4 +88,13 @@ class RestaurantsController extends Controller
         $status = 'error';
         return compact('status');
     }
+
+    public function viewPhone(Request $request, $id)
+    {
+        $restaurant = $this->model->findOrFail($id);
+        $restaurant->phone_count = $restaurant->phone_count + 1;
+        $restaurant->update();
+
+        return ['status' => 'success'];
+    }
 }

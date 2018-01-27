@@ -20,6 +20,14 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1'], function() use ($router) {
     $router->get('restaurants/by-address', 'RestaurantsController@getByAddress');
+    $router->post('restaurants/vote', 'VoteController@store');
+    $router->get('restaurants/{id:[0-9]+}/view-phone', 'RestaurantsController@viewPhone');
+
+    $router->get('restaurants/{id:[0-9]+}', 'RestaurantsController@show');
+    $router->get('dishes', 'DishesController@index');
+    $router->get('restaurants/{id:[0-9]+}/photos', 'RestaurantPhotosController@index');
+
+    $router->post('auth/register', 'AuthController@register');
 });
 
 $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1' , 'middleware' => 'auth'], function() use ($router) {
@@ -34,12 +42,12 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'Api\V1' , 'middleware' => 
     $router->post('restaurants/{id:[0-9]+}/upload', 'RestaurantsController@upload');
 
 //    fotos de restaurante
-    $router->get('restaurants/{id:[0-9]+}/photos', 'RestaurantPhotosController@index');
+
     $router->post('restaurants/photos', 'RestaurantPhotosController@store');
     $router->delete('restaurants/photos/{id:[0-9]+}', 'RestaurantPhotosController@destroy');
 
 //    pratos
-    $router->get('dishes', 'DishesController@index');
+
     $router->get('dishes/{id:[0-9]+}', 'DishesController@show');
     $router->post('dishes', 'DishesController@store');
     $router->post('dishes/{id:[0-9]+}', 'DishesController@update');
