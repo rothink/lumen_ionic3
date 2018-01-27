@@ -10,15 +10,15 @@ import {AuthService} from '../services/auth.service';
 
 export class LogoutComponent implements OnInit {
 
-    constructor(
-        private router: Router,
-        private authService: AuthService
-    ) {}
+    constructor(private router: Router,
+                private authService: AuthService) {
+    }
 
     ngOnInit() {
-       this.authService.builder()
-           .logout()
-           .then((res) => {
+        this.authService.builder()
+            .logout()
+            .then((res) => {
+                document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
                 this.router.navigate(['login'])
             })
     }

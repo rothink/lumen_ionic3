@@ -43,7 +43,10 @@ export class LoginComponent {
             .then((res) => {
                 document.cookie = 'token=' + res.access_token + "; expires=" + res.expires_in;
                 this.authService.setAccessToken();
-                this.router.navigate(['/']);
+                setTimeout(() => {
+                    this.router.navigate(['/']);
+                }, 1000);
+
             })
     }
 }

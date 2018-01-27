@@ -94,6 +94,8 @@ export class AppHttpService {
                 }
 
                 window.Materialize.toast(message, 3000, 'red');
+
+                return error;
             });
     }
 
