@@ -35,6 +35,7 @@ export class AppComponent {
             })
             .catch((error) => {
                 this.me = null;
+                
             });
     }
 }
