@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AppHttpService } from './app-http.service';
+import {Geolocation} from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -32,7 +33,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AppHttpService
+    AppHttpService,
+    Geolocation
   ]
 })
 export class AppModule {}

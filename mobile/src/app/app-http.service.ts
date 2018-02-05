@@ -116,7 +116,7 @@ export class AppHttpService {
         let prompt = this.alertCtrl.create({
             title: 'Algo deu errado',
             message: message,
-            button: [
+            buttons: [
                 {
                     text: 'OK',
                     handler: data => {
