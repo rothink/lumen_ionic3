@@ -23,11 +23,8 @@ export class HomePage {
     }
 
     ngOnInit() {
-        // let coords = JSON.parse(window.localStorage.getItem('coords')) || null;
-        let coords = {
-            latitude: -23.6194693,
-            longitude: -45.4096306
-        };
+        let coords = JSON.parse(window.localStorage.getItem('coords')) || null;
+
         let options = {
             enableHighAccuracy: true,
             timeout: 5000,
@@ -37,7 +34,6 @@ export class HomePage {
         if(coords) {
             this.makeRequest(coords);
         }
-
 
         this.geolocation.getCurrentPosition()
             .then((res) => {
