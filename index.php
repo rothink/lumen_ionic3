@@ -1,7 +1,0 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: rothink
- * Date: 15/02/18
- * Time: 23:38
- */
